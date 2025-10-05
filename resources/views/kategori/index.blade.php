@@ -4,7 +4,9 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h3">📂 Daftar Kategori</h1>
+        @if(auth()->user() && auth()->user()->isAdmin())
         <a href="{{ route('kategori.create') }}" class="btn btn-primary">+ Tambah Kategori</a>
+        @endif
     </div>
 
     <div class="mb-3">
@@ -23,13 +25,15 @@
                         <th>Nama</th>
                         <th>Deskripsi</th>
                         <th>Media</th>
+                        @if(auth()->user() && auth()->user()->isAdmin())
                         <th>Aksi</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($kategoris as $i => $kategori)
                     <tr>
-                        <td class="text-center">{{ $i+1 }}</td>
+                        <td class="text-center">{{ $kategoris->firstItem() + $i }}</td>
                         <td>{{ $kategori->nama }}</td>
                         <td>{{ $kategori->deskripsi }}</td>
                         <td class="text-center">
@@ -46,6 +50,7 @@
                                 <span class="text-muted">Tidak ada media</span>
                             @endif
                         </td>
+                        @if(auth()->user() && auth()->user()->isAdmin())
                         <td class="text-center">
                             <a href="{{ route('kategori.edit', $kategori->id) }}" class="btn btn-sm btn-warning">✏ Edit</a>
                             <form action="{{ route('kategori.destroy', $kategori->id) }}" method="POST" style="display:inline">
@@ -54,14 +59,18 @@
                                 <button type="submit" onclick="return confirm('Yakin mau hapus?')" class="btn btn-sm btn-danger">🗑 Hapus</button>
                             </form>
                         </td>
+                        @endif
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="text-center text-muted">Belum ada kategori</td>
+                        <td colspan="@if(auth()->user() && auth()->user()->isAdmin()) 5 @else 4 @endif" class="text-center text-muted">Belum ada kategori</td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center">
+                {{ $kategoris->links() }}
+            </div>
         </div>
     </div>
 </div>

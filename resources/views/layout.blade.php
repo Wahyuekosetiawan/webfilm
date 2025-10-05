@@ -43,6 +43,7 @@
         <!-- Menu -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
+            @if(auth()->check())
             <li class="nav-item mx-2">
               <a class="nav-link" aria-current="page" href="/">Home</a>
             </li>
@@ -52,6 +53,16 @@
             <li class="nav-item mx-2">
               <a class="nav-link" href="/about">About</a>
             </li>
+            <li class="nav-item mx-2">
+              <span class="nav-link">Welcome, {{ auth()->user()->name }} ({{ auth()->user()->role }})</span>
+            </li>
+            <li class="nav-item mx-2">
+              <form action="{{ route('logout') }}" method="POST" style="display:inline">
+                @csrf
+                <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
+              </form>
+            </li>
+            @endif
           </ul>
         </div>
       </div>
