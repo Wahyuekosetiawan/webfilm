@@ -9,7 +9,10 @@ class KategoriController extends Controller
 {
     public function index()
     {
-        $kategoris = Kategori::all();
+        $search = request('search');
+        $kategoris = Kategori::when($search, function ($query) use ($search) {
+            return $query->where('nama', 'LIKE', '%' . $search . '%');
+        })->get();
         return view('kategori.index', compact('kategoris'));
     }
 
