@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Website Film</title>
+    <title>MoVision</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ asset('storage/MV-removebg-preview.png') }}">
     <style>
         body {
             background: linear-gradient(to right, #2d2d2e, #3b3939, #393630, #2b2828);
@@ -32,8 +33,10 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm">
       <div class="container">
         <!-- Brand -->
-        <a class="navbar-brand fw-bold" href="/">🎬 MoVision</a>
-
+          <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+            <img src="{{ asset('storage/MV-removebg-preview.png') }}" alt="MoVision Logo" style="height: 40px; margin-right: 10px;">
+            MoVision
+        </a>
         <!-- Button toggle (mobile) -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,6 +72,18 @@
     </nav>
 
     <div class="container mt-4">
+      {{-- FUNGSI ALERT --}}
+@if(session('success'))
+<script>
+    alert("{{ session('success') }}");
+</script>
+@endif
+
+@if(session('error'))
+<script>
+    alert("{{ session('error') }}");
+</script>
+@endif
         @yield('content')
     </div>
 
