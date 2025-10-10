@@ -11,7 +11,7 @@
     @endphp
 
     @if($kategori->video && Str::endsWith($kategori->video, ['.mp4', '.mov', '.avi']))
-        <video width="70%" controls class="rounded shadow-lg mt-3">
+        <video width="70%" controls controlsList="nodownload" class="rounded shadow-lg mt-3" preload="metadata">
             <source src="{{ $videoPath }}" type="video/mp4">
             Browser kamu tidak mendukung pemutaran video.
         </video>

@@ -36,7 +36,7 @@ Route::post('/logout', function (Request $request) {
 
 /*
 |--------------------------------------------------------------------------
-| HOME ROUTE (untuk daftar kategori dan search)
+| HOME ROUTE (Daftar kategori + search)
 |--------------------------------------------------------------------------
 */
 Route::get('/', function () {
@@ -44,7 +44,7 @@ Route::get('/', function () {
 
     $kategoris = Kategori::when($search, function ($query, $search) {
         $query->where('kategori', 'like', "%{$search}%")
-              ->orWhere('deskripsi', 'like', "%{$search}%");
+              ->orWhere('nama', 'like', "%{$search}%");
     })->get();
 
     return view('home', compact('kategoris'));
@@ -65,11 +65,12 @@ Route::get('/about', function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->group(function () {
-    // 🔹 Index halaman kategori
+    // Semua user login bisa lihat daftar dan detail kategori
     Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+    Route::get('/kategori/{id}', [KategoriController::class, 'show'])->name('kategori.show');
 
-    // 🔹 CRUD lengkap (otomatis sudah ada: create, store, show, edit, update, destroy)
+    // Hanya admin bisa CRUD (create, edit, update, delete)
     Route::middleware('can:isAdmin')->group(function () {
-        Route::resource('kategori', KategoriController::class)->except(['index']);
+        Route::resource('kategori', KategoriController::class)->except(['index', 'show']);
     });
 });
