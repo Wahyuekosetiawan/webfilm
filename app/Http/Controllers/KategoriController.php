@@ -11,34 +11,47 @@ class KategoriController extends Controller
     {
         $search = request('search');
         $kategoris = Kategori::when($search, function ($query) use ($search) {
-            return $query->where('nama', 'LIKE', '%' . $search . '%');
+            return $query->where('kategori', 'LIKE', '%' . $search . '%');
         })->paginate(10);
         return view('kategori.index', compact('kategoris'));
     }
 
     public function create()
     {
-        return view('kategori.create');
+        $kategoris = Kategori::all();
+        return view('kategori.create', compact('kategoris'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'deskripsi' => 'nullable',
-            'media' => 'nullable|file|mimes:jpeg,png,jpg,gif,mp4,mov,avi|max:20480' // max 20MB
-        ]);
+        'nama' => 'required|string|max:255',
+        'kategori' => 'required|string|max:100',
+        'deskripsi' => 'nullable|string',
+        'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'video' => 'nullable|mimetypes:video/mp4,video/avi,video/mov|max:204800', // max 200MB
+    ]);
 
-        $data = $request->all();
+    $thumbnailPath = null;
+    $videoPath = null;
 
-       if ($request->hasFile('media')) {
-    // Simpan file ke storage/app/public/media
-    $path = $request->file('media')->store('media', 'public');
-    $data['media'] = $path; // hasil: "media/namafile.jpg"
-}
+    if ($request->hasFile('thumbnail')) {
+        $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+    }
 
-        Kategori::create($data);
-        return redirect()->route('kategori.index')->with('success','Kategori berhasil ditambahkan!');
+    if ($request->hasFile('video')) {
+        $videoPath = $request->file('video')->store('videos', 'public');
+    }
+
+        \App\Models\Kategori::create([
+        'nama' => $request->nama,
+        'kategori' => $request->kategori,
+        'deskripsi' => $request->deskripsi,
+        'thumbnail' => $thumbnailPath,
+        'video' => $videoPath,
+    ]);
+
+    return redirect('/')->with('success', 'Data kategori berhasil ditambahkan!');
     }
 
     public function edit(Kategori $kategori)
@@ -54,7 +67,7 @@ class KategoriController extends Controller
         'media' => 'nullable|file|mimes:jpeg,png,jpg,gif,mp4,mov,avi|max:20480' // max 20MB
     ]);
 
-    $data = $request->only(['nama', 'deskripsi']); 
+    $data = $request->only(['nama', 'deskripsi']);
 
     if ($request->hasFile('media')) {
         $file = $request->file('media');
@@ -77,5 +90,24 @@ class KategoriController extends Controller
         $kategori->delete();
         return redirect()->route('kategori.index')->with('success','Kategori berhasil dihapus!');
     }
+
+    public function home(Request $request)
+{
+    $search = $request->input('search');
+
+    $kategoris = Kategori::when($search, function($query, $search) {
+        $query->where('kategori', 'like', "%{$search}%")
+              ->orWhere('deskripsi', 'like', "%{$search}%");
+    })->get();
+
+    return view('home', compact('kategoris'));
+}
+
+public function show($id)
+{
+    $kategori = Kategori::findOrFail($id);
+    return view('kategori.show', compact('kategori'));
+}
+
 }
 
