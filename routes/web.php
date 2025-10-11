@@ -65,12 +65,21 @@ Route::get('/about', function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->group(function () {
-    // Semua user login bisa lihat daftar dan detail kategori
-    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
-    Route::get('/kategori/{id}', [KategoriController::class, 'show'])->name('kategori.show');
 
-    // Hanya admin bisa CRUD (create, edit, update, delete)
+    // 🔹 Semua user bisa melihat daftar & detail kategori
+    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+
+    // 🔹 Khusus admin: CRUD (create, store, edit, update, destroy)
     Route::middleware('can:isAdmin')->group(function () {
-        Route::resource('kategori', KategoriController::class)->except(['index', 'show']);
+        Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
+        Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.store');
+        Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
+        Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+        Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
     });
+
+    // 🔹 Route ini harus DITARUH PALING BAWAH biar gak bentrok dengan `/create` & `/edit`
+    Route::get('/kategori/{id}', [KategoriController::class, 'show'])
+        ->where('id', '[0-9]+') // biar 'create' gak keanggep ID
+        ->name('kategori.show');
 });
