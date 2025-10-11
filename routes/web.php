@@ -71,12 +71,13 @@ Route::middleware('auth')->group(function () {
 
     // 🔹 Khusus admin: CRUD (create, store, edit, update, destroy)
     Route::middleware('can:isAdmin')->group(function () {
-        Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
-        Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.store');
-        Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
-        Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
-        Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
-    });
+    Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
+    Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.store');
+    Route::get('/kategori/{kategori}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
+    Route::put('/kategori/{kategori}', [KategoriController::class, 'update'])->name('kategori.update');
+    Route::delete('/kategori/{kategori}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+});
+
 
     // 🔹 Route ini harus DITARUH PALING BAWAH biar gak bentrok dengan `/create` & `/edit`
     Route::get('/kategori/{id}', [KategoriController::class, 'show'])

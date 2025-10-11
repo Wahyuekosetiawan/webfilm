@@ -55,35 +55,30 @@ class KategoriController extends Controller
     }
 
     public function edit(Kategori $kategori)
-    {
-        return view('kategori.edit', compact('kategori'));
-    }
+{
+    return view('kategori.edit', compact('kategori'));
+}
 
-    public function update(Request $request, Kategori $kategori)
+public function update(Request $request, Kategori $kategori)
 {
     $request->validate([
-        'nama' => 'required',
-        'deskripsi' => 'nullable',
-        'media' => 'nullable|file|mimes:jpeg,png,jpg,gif,mp4,mov,avi|max:20480' // max 20MB
+        'nama' => 'required|string|max:255',
+        'kategori' => 'required|string|max:255',
+        'deskripsi' => 'nullable|string',
+        'video' => 'nullable|file|mimes:mp4,mov,avi|max:20480',
+        'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
     ]);
 
-    $data = $request->only(['nama', 'deskripsi']);
-
-    if ($request->hasFile('media')) {
-        $file = $request->file('media');
-        $filename = time() . '_' . $file->getClientOriginalName();
-
-        // simpan di storage/app/public/media
-        $path = $file->storeAs('media', $filename, 'public');
-
-        // simpan path relatif ke database
-        $data['media'] = $path; // hasil: media/namafile.jpg
-    }
-
-    $kategori->update($data);
+    // update data
+    $kategori->update([
+        'nama' => $request->nama,
+        'kategori' => $request->kategori,
+        'deskripsi' => $request->deskripsi,
+    ]);
 
     return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui!');
 }
+
 
     public function destroy(Kategori $kategori)
     {
