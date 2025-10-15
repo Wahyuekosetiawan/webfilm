@@ -19,7 +19,15 @@
 
                         <div class="mb-3">
                             <label for="kategori" class="form-label">Kategori</label>
-                            <input type="text" name="kategori" id="kategori" class="form-control" placeholder="Contoh: Action, Drama, Horror" required>
+                            <select name="kategori" id="kategori" class="form-control" required>
+                                <option value="">Pilih Kategori</option>
+                                <option value="adventure">Adventure</option>
+                                <option value="horror">Horror</option>
+                                <option value="comedy">Comedy</option>
+                                <option value="drama">Drama</option>
+                                <option value="action">Action</option>
+                                <option value="romance">Romance</option>
+                            </select>
                         </div>
 
                         <div class="mb-3">

@@ -38,7 +38,7 @@ class KategoriController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'kategori' => 'required|string|max:100',
+            'kategori' => 'required|in:adventure,horror,comedy,drama,action,romance',
             'deskripsi' => 'nullable|string',
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'video' => 'nullable|mimetypes:video/mp4,video/avi,video/mov|max:204800', // max 200MB
@@ -75,7 +75,7 @@ class KategoriController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'kategori' => 'required|string|max:255',
+            'kategori' => 'required|in:adventure,horror,comedy,drama,action,romance',
             'deskripsi' => 'nullable|string',
             'video' => 'nullable|file|mimes:mp4,mov,avi|max:20480',
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',

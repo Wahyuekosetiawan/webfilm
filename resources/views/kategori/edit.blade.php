@@ -35,7 +35,15 @@
                 {{-- Kategori --}}
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Kategori</label>
-                    <input type="text" name="kategori" value="{{ old('kategori', $kategori->kategori) }}" class="form-control shadow-sm" required>
+                    <select name="kategori" class="form-control shadow-sm" required>
+                        <option value="">Pilih Kategori</option>
+                        <option value="adventure" {{ old('kategori', $kategori->kategori) == 'adventure' ? 'selected' : '' }}>Adventure</option>
+                        <option value="horror" {{ old('kategori', $kategori->kategori) == 'horror' ? 'selected' : '' }}>Horror</option>
+                        <option value="comedy" {{ old('kategori', $kategori->kategori) == 'comedy' ? 'selected' : '' }}>Comedy</option>
+                        <option value="drama" {{ old('kategori', $kategori->kategori) == 'drama' ? 'selected' : '' }}>Drama</option>
+                        <option value="action" {{ old('kategori', $kategori->kategori) == 'action' ? 'selected' : '' }}>Action</option>
+                        <option value="romance" {{ old('kategori', $kategori->kategori) == 'romance' ? 'selected' : '' }}>Romance</option>
+                    </select>
                 </div>
 
                 {{-- Deskripsi --}}

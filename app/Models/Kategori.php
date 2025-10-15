@@ -16,4 +16,13 @@ class Kategori extends Model
         'thumbnail',
         'video'
     ];
+
+    protected $casts = [
+        'kategori' => 'string',
+    ];
+
+    public static function getKategoriOptions()
+    {
+        return ['adventure', 'horror', 'comedy', 'drama', 'action', 'romance'];
+    }
 }
