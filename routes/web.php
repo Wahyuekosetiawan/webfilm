@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,34 @@ Route::post('/logout', function (Request $request) {
     $request->session()->regenerateToken();
     return redirect('/login')->with('success', 'Logout berhasil!');
 })->name('logout')->middleware('auth');
+
+/*
+|--------------------------------------------------------------------------
+| REGISTER ROUTES
+|--------------------------------------------------------------------------
+*/
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register')->middleware('guest');
+
+Route::post('/register', function (Request $request) {
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8|confirmed',
+    ]);
+
+    $user = \App\Models\User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+        'role' => 'user',
+    ]);
+
+    Auth::login($user);
+
+    return redirect('/')->with('success', 'Registrasi berhasil! Selamat datang 👋');
+})->middleware('guest');
 
 /*
 |--------------------------------------------------------------------------

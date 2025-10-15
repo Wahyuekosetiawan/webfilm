@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | MoVision</title>
+    <title>Register | MoVision</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -17,7 +17,7 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        .login-card {
+        .register-card {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -27,18 +27,18 @@
             transition: all 0.3s ease;
         }
 
-        .login-card:hover {
+        .register-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 30px rgba(0,0,0,0.6);
         }
 
-        .login-card .card-header {
+        .register-card .card-header {
             background: transparent;
             border-bottom: none;
             text-align: center;
         }
 
-        .login-card h4 {
+        .register-card h4 {
             font-weight: 600;
             color: #FFD700;
         }
@@ -116,37 +116,62 @@
     <div class="container fade-in">
         <div class="row justify-content-center">
             <div class="col-md-5">
-                <div class="card login-card p-4 shadow-lg">
+                <div class="card register-card p-4 shadow-lg">
                     <div class="card-header">
                         <img src="{{ asset('storage/MV-removebg-preview.png') }}" alt="MoVision" class="logo">
-                        <h4>Welcome</h4>
-                        <p class="text-light opacity-75">Login to continue to <strong>MoVision</strong></p>
+                        <h4>Join MoVision</h4>
+                        <p class="text-light opacity-75">Create your account to get started</p>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ route('register') }}">
                             @csrf
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Enter your full name" value="{{ old('name') }}" required>
+                                </div>
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email Address</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Enter your email" value="{{ old('email') }}" required>
                                 </div>
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Enter your password" required>
+                                </div>
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm your password" required>
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-custom w-100 py-2 mt-2">Login</button>
+                            <button type="submit" class="btn btn-custom w-100 py-2 mt-2">Register</button>
                         </form>
                     </div>
                 </div>
                 <div class="footer-text">
-                    Don't have an account? <a href="{{ route('register') }}">Register here</a>
+                    Already have an account? <a href="{{ route('login') }}">Login here</a>
                 </div>
                 <div class="footer-text">
                     &copy; {{ date('Y') }} MoVision. All rights reserved.
