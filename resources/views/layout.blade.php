@@ -7,7 +7,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{{ asset('storage/MV-removebg-preview.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('storage/movision-preview.png') }}">
 
     <style>
         body {
@@ -125,25 +125,30 @@
 </head>
 <body>
     <!-- === NAVBAR === -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="/">
-                <img src="{{ asset('storage/movision-preview.png') }}" alt="MoVision Logo" style="height: 30px; margin-right: 10px;">
-            </a>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <img src="{{ asset('storage/movision-preview.png') }}" alt="MoVision Logo" style="height: 30px; margin-right: 10px;">
+        </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    @if(auth()->check())
-                    <li class="nav-item mx-2"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item mx-2"><a class="nav-link" href="/kategori">Kategori</a></li>
-                    <li class="nav-item mx-2"><a class="nav-link" href="/about">About</a></li>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                {{-- Menu yang selalu tampil --}}
+                <li class="nav-item mx-2"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item mx-2"><a class="nav-link" href="/kategori">Kategori</a></li>
+                <li class="nav-item mx-2"><a class="nav-link" href="/about">About</a></li>
+
+                {{-- Kalau udah login --}}
+                @auth
                     <li class="nav-item mx-2">
-                        <span class="nav-link text-warning fw-semibold">Hi, {{ auth()->user()->name }} ({{ auth()->user()->role }})</span>
+                        <span class="nav-link text-warning fw-semibold">
+                            Hi, {{ auth()->user()->name }} ({{ auth()->user()->role }})
+                        </span>
                     </li>
                     <li class="nav-item mx-2">
                         <form action="{{ route('logout') }}" method="POST" style="display:inline">
@@ -151,11 +156,19 @@
                             <button type="submit" class="btn btn-outline-light btn-sm px-3">Logout</button>
                         </form>
                     </li>
-                    @endif
-                </ul>
-            </div>
+
+                {{-- Kalau belum login --}}
+                @else
+                    <li class="nav-item mx-2">
+                        <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm px-3">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li>
+                @endauth
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- === CONTENT AREA === -->
     <div class="container mt-4 mb-5">

@@ -47,8 +47,8 @@ Route::get('/', function () {
               ->orWhere('nama', 'like', "%{$search}%");
     })->get();
 
-    return view('home', compact('kategoris'));
-})->name('home')->middleware('auth');
+    return view('home', compact('kategoris'))->render();
+})->name('home');
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ Route::get('/', function () {
 */
 Route::get('/about', function () {
     return view('about');
-})->middleware('auth');
+});
 
 /*
 |--------------------------------------------------------------------------
