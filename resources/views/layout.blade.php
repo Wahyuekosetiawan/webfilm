@@ -22,7 +22,7 @@
 
         /* === NAVBAR === */
         .navbar-custom {
-            background: linear-gradient(to right, #FFD700, #3a3000);
+            background: #FFD700;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
         }
 
@@ -39,18 +39,18 @@
         }
 
         .navbar-custom .nav-link:hover {
-            color: #FFD700 !important;
+            color: #000 !important;
             text-shadow: 0 0 5px #FFD700;
         }
 
         .navbar-custom .btn-outline-light {
-            border-color: #FFD700;
-            color: #FFD700;
+            border-color: #000000;
+            color: #f99500;
         }
 
         .navbar-custom .btn-outline-light:hover {
-            background-color: #FFD700;
-            color: #000;
+            background-color: #000;
+            color: #FFD700;
         }
 
         /* === CONTENT === */
@@ -128,8 +128,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="/">
-                <img src="{{ asset('storage/MV-removebg-preview.png') }}" alt="MoVision Logo" style="height: 40px; margin-right: 10px;">
-                MoVision
+                <img src="{{ asset('storage/movision-preview.png') }}" alt="MoVision Logo" style="height: 30px; margin-right: 10px;">
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
