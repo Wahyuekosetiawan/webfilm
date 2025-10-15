@@ -1,8 +1,5 @@
-# TODO: Add User Registration Feature
-
-## Completed Tasks
-- [x] Analyze existing code and plan the implementation
-- [x] Edit routes/web.php to add GET /register and POST /register routes
-- [x] Create resources/views/auth/register.blade.php with registration form
-- [x] Edit resources/views/auth/login.blade.php to add link to register page
-- [x] Test registration and login after registration (Skipped as per user request)
+- [x] Edit KategoriController.php to remove the redundant auth()->check() call in the index() method
+- [x] Fix the new "Undefined method 'user'" error by using Auth::user() instead of auth()->user()
+- [x] Fix the "Undefined method 'isAdmin'" error by inlining the role check
+- [ ] Clear Laravel caches to ensure changes take effect
+- [ ] Test the application by accessing /kategori as admin and non-admin users

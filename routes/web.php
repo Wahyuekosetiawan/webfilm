@@ -32,7 +32,7 @@ Route::post('/logout', function (Request $request) {
     Auth::logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
-    return redirect('/login')->with('success', 'Logout berhasil!');
+    return redirect('/')->with('success', 'Logout berhasil!');
 })->name('logout')->middleware('auth');
 
 /*
@@ -48,7 +48,7 @@ Route::post('/register', function (Request $request) {
     $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|min:8|confirmed',
+        'password' => 'required|string|min:2|confirmed',
     ]);
 
     $user = \App\Models\User::create([
