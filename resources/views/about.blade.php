@@ -36,9 +36,48 @@
                                 </p>
                             </div>
 
-                            <p class="text-light">
+                            <p class="text-light mb-4">
                                 Tujuan kami sederhana — menghadirkan pengalaman browsing film yang cepat, bersih, dan menyenangkan. Baik kamu sekadar ingin mencari referensi film, atau belajar bagaimana sistem berbasis Laravel bekerja, MoVision siap menemanimu.
                             </p>
+                            
+                            <!-- Anggota Team Section -->
+                            <div class="team-section mt-5 pt-4">
+                                <h4 class="text-warning text-center mb-4">Tim Pengembang</h4>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6">
+                                        <div class="team-member-card bg-dark border border-warning rounded p-3 mb-3">
+                                            <div class="member-info text-center">
+                                                <h6 class="text-light mb-2 fw-bold">Adinda Febrian Dwitama</h6>
+                                                <p class="text-warning mb-0">241011700853</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="team-member-card bg-dark border border-warning rounded p-3 mb-3">
+                                            <div class="member-info text-center">
+                                                <h6 class="text-light mb-2 fw-bold">Annas Syafarudin</h6>
+                                                <p class="text-warning mb-0">241011700462</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="team-member-card bg-dark border border-warning rounded p-3 mb-3">
+                                            <div class="member-info text-center">
+                                                <h6 class="text-light mb-2 fw-bold">Fadhilah Tris Nadia</h6>
+                                                <p class="text-warning mb-0">241011701281</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="team-member-card bg-dark border border-warning rounded p-3 mb-3">
+                                            <div class="member-info text-center">
+                                                <h6 class="text-light mb-2 fw-bold">Wahyu Eko Setiawan</h6>
+                                                <p class="text-warning mb-0">241011700451</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -55,17 +94,9 @@
             animation: fadeInUp 0.8s ease-in-out;
         }
 
-        .fade-in-delay {
-            animation: fadeIn 1s ease-in-out;
-        }
-
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes fadeInUp {
@@ -85,12 +116,8 @@
         }
 
         @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .divider {
@@ -115,27 +142,58 @@
             border-radius: 0 8px 8px 0;
         }
 
-        .feature-item {
-            padding: 15px 0;
-            transition: transform 0.2s ease;
+        .team-section {
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
         }
 
-        .feature-item:hover {
-            transform: scale(1.05);
-        }
-
-        .feature-item i {
-            font-size: 1.5rem;
-        }
-
-        .btn-warning {
-            font-weight: 600;
+        .team-member-card {
             transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .btn-warning:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        .team-member-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+            border-color: #ffed4a !important;
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .member-info h6 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-info p {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .team-member-card {
+                margin-bottom: 15px;
+                min-height: 70px;
+                padding: 1rem !important;
+            }
+            
+            .member-info h6 {
+                font-size: 0.9rem;
+            }
+            
+            .member-info p {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .team-member-card {
+                min-height: 65px;
+                padding: 0.75rem !important;
+            }
         }
     </style>
 @endsection

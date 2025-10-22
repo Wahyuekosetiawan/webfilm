@@ -9,9 +9,13 @@
         $videoPath = $kategori->video ? asset('storage/' . $kategori->video) : null;
         $thumbPath = $kategori->thumbnail ? asset('storage/' . $kategori->thumbnail) : null;
     @endphp
+    <div class="mt-4">
+        <a href="{{ route('home') }}" class="btn btn-warning text-dark fw-semibold px-4">⬅ Kembali</a>
+    </div>
+</div>
 
     @if($kategori->video && Str::endsWith($kategori->video, ['.mp4', '.mov', '.avi']))
-        <video width="70%" controls controlsList="nodownload" class="rounded shadow-lg mt-3" preload="metadata">
+        <video width="100%" controls controlsList="nodownload" class="rounded shadow-lg mt-3" preload="metadata">
             <source src="{{ $videoPath }}" type="video/mp4">
             Browser kamu tidak mendukung pemutaran video.
         </video>
@@ -20,11 +24,6 @@
     @else
         <div class="mt-4 text-muted fst-italic">Tidak ada media tersedia</div>
     @endif
-
-    <div class="mt-4">
-        <a href="{{ route('home') }}" class="btn btn-warning text-dark fw-semibold px-4">⬅ Kembali</a>
-    </div>
-</div>
 
 <style>
 .fade-in {
